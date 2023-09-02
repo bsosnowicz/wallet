@@ -1,0 +1,25 @@
+.Container {
+  background-color: rgb(255, 255, 255);
+  padding: 45px 65px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.Header {
+  font-size: 30px;
+}
+
+.Input {
+  width: 400px;
+  height: 32px;
+}
+
+.Button {
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+}
