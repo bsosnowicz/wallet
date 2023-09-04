@@ -1,15 +1,17 @@
-import { Link } from "react-router-dom";
-import css from "./LoginForm.module.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import css from "./RegisterForm.module.css";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const LoginForm = () => {
+const RegisterForm = () => {
+  const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const sendLoginRequest = async () => {
+  const sendRegisterRequest = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post("http://localhost:8000/register", {
+        username: username,
         email: email,
         password: password,
       });
@@ -24,32 +26,30 @@ const LoginForm = () => {
       <form className={css.Form}>
         <h3 className={css.Header}>Wallet</h3>
         <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          onChange={(e) => setUsername(e.target.value)}
           className={css.Input}
         />
         <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+          onChange={(e) => setEmail(e.target.value)}
+          className={css.Input}
+        />
+        <input
+          onChange={(e) => setPassword(e.target.value)}
           className={css.Input}
         />
         <button
           onClick={(e) => {
-            sendLoginRequest();
             e.preventDefault();
+            sendRegisterRequest();
           }}
           className={css.Button}
         >
-          LOG IN
-        </button>
-        <Link to="/register" classname={css.Button}>
           REGISTER
-        </Link>
+        </button>
+        <Link classname={css.Button}>REGISTER</Link>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
