@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import css from "./LoginForm.module.css";
 
 const LoginForm = () => {
@@ -8,7 +9,9 @@ const LoginForm = () => {
         <input className={css.Input} />
         <input className={css.Input} />
         <button className={css.Button}>LOG IN</button>
-        <button className={css.Button}>REGISTER</button>
+        <Link to="/register" classname={css.Button}>
+          REGISTER
+        </Link>
       </form>
     </div>
   );
