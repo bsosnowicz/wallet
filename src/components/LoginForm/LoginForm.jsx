@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import css from "./LoginForm.module.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const LoginForm = () => {
   const [email, setEmail] = useState();
@@ -13,7 +13,7 @@ const LoginForm = () => {
         email: email,
         password: password,
       });
-      console.log(response);
+      console.log(response.data);
     } catch (e) {
       console.log(e.message);
     }
@@ -33,6 +33,7 @@ const LoginForm = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          type="password"
           className={css.Input}
         />
         <button

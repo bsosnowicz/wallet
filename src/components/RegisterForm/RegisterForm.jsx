@@ -35,6 +35,7 @@ const RegisterForm = () => {
         />
         <input
           onChange={(e) => setPassword(e.target.value)}
+          type="password"
           className={css.Input}
         />
         <button
@@ -46,7 +47,9 @@ const RegisterForm = () => {
         >
           REGISTER
         </button>
-        <Link classname={css.Button}>REGISTER</Link>
+        <Link to="/" classname={css.Button}>
+          LOGIN
+        </Link>
       </form>
     </div>
   );
