@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import css from "./LoginForm.module.css";
 import axios from "axios";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { useState } from "react";
 const LoginForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState();
 
   const sendLoginRequest = async () => {
     try {
@@ -13,42 +14,73 @@ const LoginForm = () => {
         email: email,
         password: password,
       });
-      console.log(response.data);
+      if (response.data.data.token) {
+        localStorage.setItem("token", response.data.data.token);
+        setIsLoggedIn(true);
+        console.log(response.data.data);
+      }
     } catch (e) {
       console.log(e.message);
     }
   };
 
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard/home" />;
+  }
+
   return (
     <div className={css.Container}>
-      <form className={css.Form}>
-        <h3 className={css.Header}>Wallet</h3>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          className={css.Input}
-        />
-        <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          type="password"
-          className={css.Input}
-        />
-        <button
-          onClick={(e) => {
-            sendLoginRequest();
-            e.preventDefault();
-          }}
-          className={css.Button}
-        >
-          LOG IN
-        </button>
-        <Link to="/register" classname={css.Button}>
-          REGISTER
-        </Link>
-      </form>
+      <div className={css.LeftContainer}>
+        <div className={css.LeftTextContainer}>
+          <div className={css.LogoContainer}>
+            <img className={css.Logo} src="./logo.png" />
+            <h3 className={css.Title}>Wallet</h3>
+          </div>
+          <div className={css.FormContainer}>
+            <h4 className={css.Header}>Welcome back!</h4>
+            <p className={css.Description}>
+              Welcome back! Please enter your details
+            </p>
+            <form className={css.Form}>
+              <p className={css.InputText}>Email</p>
+              <input
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                placeholder="Enter your email"
+                className={css.Input}
+              />
+              <p className={css.InputText}>Password</p>
+              <input
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type="password"
+                placeholder="••••••••"
+                className={css.Input}
+              />
+              <button
+                onClick={(e) => {
+                  sendLoginRequest();
+                  e.preventDefault();
+                }}
+                className={css.SigninButton}
+              >
+                Sign in
+              </button>
+              <p className={css.SignUpText}>
+                Don't have an account?
+                <Link className={css.SignUpTextLink} to="/register">
+                  Sign up
+                </Link>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className={css.RightContainer}>
+        <img className={css.RightContainerImage} src="./purpleball.png" />
+      </div>
     </div>
   );
 };
