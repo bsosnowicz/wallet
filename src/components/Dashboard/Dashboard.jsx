@@ -6,6 +6,7 @@ import Home from "../Home/Home";
 import { Route, Routes } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import TransactionHistory from "../TransactionHistory/TransactionHistory";
+import LogoutModal from "../LogoutModal/LogoutModal";
 
 const Dashboard = () => {
   const [wallet, setWallet] = useState();
@@ -40,6 +41,7 @@ const Dashboard = () => {
               <TransactionHistory getBalance={getBalance} wallet={wallet} />
             }
           />
+          <Route path="logout" element={<LogoutModal />} />
         </Routes>
       </div>
     </div>

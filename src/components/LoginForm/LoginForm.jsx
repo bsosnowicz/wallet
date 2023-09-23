@@ -2,6 +2,8 @@ import { Link, Navigate } from "react-router-dom";
 import css from "./LoginForm.module.css";
 import axios from "axios";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const [email, setEmail] = useState();
@@ -14,6 +16,8 @@ const LoginForm = () => {
         email: email,
         password: password,
       });
+      console.log(response);
+
       if (response.data.data.token) {
         localStorage.setItem("token", response.data.data.token);
         setIsLoggedIn(true);
@@ -21,6 +25,9 @@ const LoginForm = () => {
       }
     } catch (e) {
       console.log(e.message);
+      if (e.response) {
+        toast.error(e.response.data.message);
+      }
     }
   };
 
@@ -55,6 +62,7 @@ const LoginForm = () => {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                maxLength={30}
                 type="password"
                 placeholder="••••••••"
                 className={css.Input}
@@ -81,6 +89,7 @@ const LoginForm = () => {
       <div className={css.RightContainer}>
         <img className={css.RightContainerImage} src="./purpleball.png" />
       </div>
+      <ToastContainer />
     </div>
   );
 };

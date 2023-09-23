@@ -1,7 +1,9 @@
 import axios from "axios";
 import css from "./RegisterForm.module.css";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState();
@@ -15,9 +17,19 @@ const RegisterForm = () => {
         email: email,
         password: password,
       });
-      console.log(response);
+      if (response) {
+        toast.success("Account registered!");
+        setTimeout(
+          () => window.location.replace("http://localhost:3000/"),
+          1500
+        );
+      }
+      console.log(response.status);
     } catch (e) {
       console.log(e.message);
+      if (e.response) {
+        toast.error(e.response.data.message);
+      }
     }
   };
 
@@ -78,6 +90,7 @@ const RegisterForm = () => {
       <div className={css.RightContainer}>
         <img className={css.RightContainerImage} src="./purpleball.png" />
       </div>
+      <ToastContainer />
     </div>
   );
 };

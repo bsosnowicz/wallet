@@ -2,10 +2,17 @@ import { useEffect, useState } from "react";
 import css from "./Home.module.css";
 import api from "../../auth/api";
 import Modal from "../Modal/Modal";
+import TransferModal from "../TransferModal/TransferModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = ({ wallet, getBalance }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenTransfer, setIsOpenTransfer] = useState(false);
+  const [isOpenTransactionHistory, setisOpenTransactionHistory] =
+    useState(false);
   const [transactionType, setTransactionType] = useState("deposit");
+  const [displayNotification, setDisplayNotification] = useState(false);
 
   const clearHistory = async () => {
     try {
@@ -19,9 +26,22 @@ const Home = ({ wallet, getBalance }) => {
     }
   };
 
+  const handleTransactionHistoryModal = async (e) => {
+    console.log(e.target);
+    setisOpenTransactionHistory(true);
+  };
+
+  const handleNotification = (message) => {
+    toast.error(message);
+    setDisplayNotification(false);
+  };
+
   useEffect(() => {
     getBalance();
   }, []);
+  useEffect(() => {
+    handleNotification();
+  }, [handleNotification]);
 
   return (
     <div>
@@ -37,7 +57,7 @@ const Home = ({ wallet, getBalance }) => {
             }}
             className={css.TransactionMenuButton}
           >
-            <svg className={css.Icon} width="24" height="24">
+            <svg className={css.Icon} width="16" height="16">
               <use href="../../../icons.svg#plus"></use>
             </svg>
             Deposit
@@ -49,13 +69,18 @@ const Home = ({ wallet, getBalance }) => {
             }}
             className={css.TransactionMenuButton}
           >
-            <svg className={css.Icon} width="24" height="24">
+            <svg className={css.Icon} width="16" height="16">
               <use href="../../../icons.svg#minus"></use>
             </svg>
             Withdraw
           </button>
-          <button className={css.TransactionMenuButton}>
-            <svg className={css.Icon} width="24" height="24">
+          <button
+            onClick={() => {
+              setIsOpenTransfer(true);
+            }}
+            className={css.TransactionMenuButton}
+          >
+            <svg className={css.Icon} width="16" height="16">
               <use href="../../../icons.svg#arrow"></use>
             </svg>
             Transfer
@@ -66,24 +91,45 @@ const Home = ({ wallet, getBalance }) => {
           <ul className={css.TransactionHistoryList}>
             {wallet ? (
               wallet.transactionHistory.slice(-3).map((item) => (
-                <li className={css.TransactionHistoryItem}>
+                <li
+                  className={css.TransactionHistoryItem}
+                  onClick={(e) => handleTransactionHistoryModal(e)}
+                >
                   <div className={css.TransactionHistoryContainer}>
-                    {item.type === "Deposit" ? (
+                    {item.type === "Withdraw" ? (
                       <svg
                         className={css.TransactionHistoryIcon}
-                        width="24"
-                        height="24"
-                      >
-                        <use href="../../../icons.svg#plus"></use>
-                      </svg>
-                    ) : (
-                      <svg
-                        className={css.TransactionHistoryIcon}
-                        width="24"
-                        height="24"
+                        width="16"
+                        height="16"
                       >
                         <use href="../../../icons.svg#minus"></use>
                       </svg>
+                    ) : item.type === "Deposit" ? (
+                      <svg
+                        className={css.TransactionHistoryIcon}
+                        width="16"
+                        height="16"
+                      >
+                        <use href="../../../icons.svg#plus"></use>
+                      </svg>
+                    ) : item.type === "Transfer received" ? (
+                      <svg
+                        className={css.TransactionHistoryIcon}
+                        width="16"
+                        height="16"
+                      >
+                        <use href="../../../icons.svg#arrow-left"></use>
+                      </svg>
+                    ) : item.type === "Transfer sent" ? (
+                      <svg
+                        className={css.TransactionHistoryIcon}
+                        width="16"
+                        height="16"
+                      >
+                        <use href="../../../icons.svg#arrow"></use>
+                      </svg>
+                    ) : (
+                      ""
                     )}
 
                     <div>
@@ -93,12 +139,24 @@ const Home = ({ wallet, getBalance }) => {
                       <p>{item.date}</p>
                     </div>
                   </div>
-                  <div className={css.TransactionHistoryAmountContainer}>
-                    {item.type === "Deposit" ? <p>+</p> : <p>-</p>}
-                    <p className={css.TransactionHistoryAmount}>
-                      {item.amount}$
-                    </p>
-                  </div>
+                  {item.title === "Account registered!" ? (
+                    ""
+                  ) : (
+                    <div className={css.TransactionHistoryAmountContainer}>
+                      {item.type === "Withdraw" ||
+                      item.type === "Transfer sent" ? (
+                        <p>-</p>
+                      ) : item.type === "Deposit" ||
+                        item.type === "Transfer received" ? (
+                        <p>+</p>
+                      ) : (
+                        ""
+                      )}
+                      <p className={css.TransactionHistoryAmount}>
+                        ${item.amount}
+                      </p>
+                    </div>
+                  )}
                 </li>
               ))
             ) : (
@@ -124,10 +182,19 @@ const Home = ({ wallet, getBalance }) => {
           setIsOpen={setIsOpen}
           setTransactionType={setTransactionType}
           transactionType={transactionType}
+          wallet={wallet}
+          setDisplayNotification={setDisplayNotification}
+          handleNotification={handleNotification}
         />
       ) : (
         ""
       )}
+      {isOpenTransfer ? (
+        <TransferModal setIsOpenTransfer={setIsOpenTransfer} />
+      ) : (
+        ""
+      )}
+      <ToastContainer />
     </div>
   );
 };

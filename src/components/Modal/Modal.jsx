@@ -2,7 +2,13 @@ import { useState } from "react";
 import css from "./Modal.module.css";
 import api from "../../auth/api";
 
-const Modal = ({ setIsOpen, setTransactionType, transactionType }) => {
+const Modal = ({
+  setIsOpen,
+  setTransactionType,
+  transactionType,
+  setDisplayNotification,
+  handleNotification,
+}) => {
   const [transactionAmount, setTransactionAmount] = useState();
   const [title, setTitle] = useState();
 
@@ -25,9 +31,11 @@ const Modal = ({ setIsOpen, setTransactionType, transactionType }) => {
       console.log(response);
       if (response) {
         window.location.reload();
+        setDisplayNotification(false);
       }
     } catch (e) {
       console.log(e.message);
+      handleNotification(e.response.data.message);
     }
   };
 
@@ -39,10 +47,15 @@ const Modal = ({ setIsOpen, setTransactionType, transactionType }) => {
       });
       console.log(response);
       if (response) {
+        setDisplayNotification(false);
         window.location.reload();
       }
     } catch (e) {
       console.log(e.message);
+      if (e.response) {
+        setDisplayNotification(true);
+        handleNotification(e.response.data.message);
+      }
     }
   };
 
@@ -52,35 +65,59 @@ const Modal = ({ setIsOpen, setTransactionType, transactionType }) => {
         <h3 className={css.Title}>Add transaction</h3>
         {transactionType === "deposit" ? (
           <div className={css.Slider}>
-            <p style={{ fontWeight: "700", color: "#5a358a" }}>Deposit</p>
+            <p
+              className={css.SliderText}
+              style={{ fontWeight: "700", color: "#5a358a" }}
+            >
+              Deposit
+            </p>
             <div
               className={css.SliderBallContainer}
               onClick={() => handleSliderClick()}
             >
-              <svg className={css.SliderBallIcon} width="20" height="20">
+              <svg
+                style={{
+                  transition:
+                    "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+                }}
+                className={css.SliderBallIcon}
+                width="20"
+                height="20"
+              >
                 <use href="../../../icons.svg#plus"></use>
               </svg>
             </div>
-            <p>Withdraw</p>
+            <p className={css.SliderText}>Withdraw</p>
           </div>
         ) : (
           <div className={css.Slider}>
-            <p>Deposit</p>
+            <p className={css.SliderText}>Deposit</p>
             <div
               className={css.SliderBallContainer}
-              style={{ justifyContent: "flex-end" }}
               onClick={() => handleSliderClick()}
             >
-              <svg className={css.SliderBallIcon} width="20" height="20">
+              <svg
+                style={{
+                  transform: `translateX(100%)`,
+                  transition:
+                    "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+                }}
+                className={css.SliderBallIcon}
+                width="20"
+                height="20"
+              >
                 <use href="../../../icons.svg#minus"></use>
               </svg>
             </div>
-            <p style={{ fontWeight: "700", color: "#5a358a" }}>Withdraw</p>
+            <p
+              className={css.SliderText}
+              style={{ fontWeight: "700", color: "#5a358a" }}
+            >
+              Withdraw
+            </p>
           </div>
         )}
-        {/* <svg className={css.SliderBallIcon} width="20" height="20">
-              <use href="../../../icons.svg#plus"></use>
-            </svg> */}
+
         <input
           onChange={(e) => {
             const title = e.target.value;
@@ -96,6 +133,7 @@ const Modal = ({ setIsOpen, setTransactionType, transactionType }) => {
           }}
           placeholder="0.00"
           className={css.Input}
+          maxLength={5}
         />
         {transactionType === "deposit" ? (
           <button

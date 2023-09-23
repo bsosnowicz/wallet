@@ -1,7 +1,3 @@
-1. Logowanie/Rejestracja ✓
-2. Logout ✓
-3. Doładowanie konta ✓
-4. Wyświetlanie stanu konta w różnych walutach
-5. Wypłacenie ✓
-6. Historia transakcji ✓
-7. clearHistory ✓
+accesability when logged out
+spinner(loading)
+transaction modal

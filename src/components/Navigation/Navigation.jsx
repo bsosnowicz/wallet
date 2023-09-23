@@ -33,7 +33,7 @@ const Navigation = () => {
           className={css.Link}
           style={
             currentLocation === "/dashboard/home"
-              ? { color: "#5a358a", backgroundColor: "#a38cc4" }
+              ? { color: "#5a358a", backgroundColor: "#ffff" }
               : {}
           }
           to="home"
@@ -54,7 +54,7 @@ const Navigation = () => {
           className={css.Link}
           style={
             currentLocation === "/dashboard/history"
-              ? { color: "#5a358a", backgroundColor: "#a38cc4" }
+              ? { color: "#5a358a", backgroundColor: "#ffff" }
               : {}
           }
           to="history"
@@ -73,8 +73,23 @@ const Navigation = () => {
           </svg>
           Transaction History
         </Link>
-        <Link className={css.Link} to="/">
-          <svg className={css.Icon} width="24" height="24">
+        <Link
+          className={css.Link}
+          style={
+            currentLocation === "/dashboard/logout"
+              ? { color: "#5a358a", backgroundColor: "#ffff" }
+              : {}
+          }
+          to="/dashboard/logout"
+        >
+          <svg
+            style={
+              currentLocation === "/dashboard/logout" ? { fill: "#5a358a" } : {}
+            }
+            className={css.Icon}
+            width="24"
+            height="24"
+          >
             <use href="../../../icons.svg#logout"></use>
           </svg>
           Logout
