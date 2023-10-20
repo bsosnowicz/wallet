@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import css from "./TransactionHistory.module.css";
 import api from "../../auth/api";
 
@@ -14,16 +14,12 @@ const TransactionHistory = ({ wallet, getBalance }) => {
       const response = await api.put(
         "http://localhost:8000/balance/clearhistory"
       );
-      getBalance();
       console.log(response);
+      getBalance();
     } catch (e) {
       console.log(e.message);
     }
   };
-
-  useEffect(() => {
-    console.log(wallet);
-  });
 
   return (
     <div>

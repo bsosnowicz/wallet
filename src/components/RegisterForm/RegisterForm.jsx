@@ -1,6 +1,6 @@
 import axios from "axios";
 import css from "./RegisterForm.module.css";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +24,6 @@ const RegisterForm = () => {
           1500
         );
       }
-      console.log(response.status);
     } catch (e) {
       console.log(e.message);
       if (e.response) {
@@ -38,7 +37,7 @@ const RegisterForm = () => {
       <div className={css.LeftContainer}>
         <div className={css.LeftTextContainer}>
           <div className={css.LogoContainer}>
-            <img className={css.Logo} src="./logo.png" />
+            <img alt="Logo" className={css.Logo} src="./logo.png" />
             <h3 className={css.Title}>Wallet</h3>
           </div>
           <div className={css.FormContainer}>
@@ -88,7 +87,11 @@ const RegisterForm = () => {
         </div>
       </div>
       <div className={css.RightContainer}>
-        <img className={css.RightContainerImage} src="./purpleball.png" />
+        <img
+          alt="purpleball"
+          className={css.RightContainerImage}
+          src="./purpleball.png"
+        />
       </div>
       <ToastContainer />
     </div>

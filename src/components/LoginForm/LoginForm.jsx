@@ -16,12 +16,10 @@ const LoginForm = () => {
         email: email,
         password: password,
       });
-      console.log(response);
 
       if (response.data.data.token) {
         localStorage.setItem("token", response.data.data.token);
         setIsLoggedIn(true);
-        console.log(response.data.data);
       }
     } catch (e) {
       console.log(e.message);
@@ -40,7 +38,7 @@ const LoginForm = () => {
       <div className={css.LeftContainer}>
         <div className={css.LeftTextContainer}>
           <div className={css.LogoContainer}>
-            <img className={css.Logo} src="./logo.png" />
+            <img alt="logo" className={css.Logo} src="./logo.png" />
             <h3 className={css.Title}>Wallet</h3>
           </div>
           <div className={css.FormContainer}>
@@ -87,7 +85,11 @@ const LoginForm = () => {
         </div>
       </div>
       <div className={css.RightContainer}>
-        <img className={css.RightContainerImage} src="./purpleball.png" />
+        <img
+          alt="purpleball"
+          className={css.RightContainerImage}
+          src="./purpleball.png"
+        />
       </div>
       <ToastContainer />
     </div>

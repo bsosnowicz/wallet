@@ -1,17 +1,19 @@
-import axios from "axios";
+import Axios, { InternalAxiosRequestConfig } from "axios";
 
-const createAxiosInstance = () => {
-  const instance = axios.create({
-    baseURL: "http://localhost:8000",
-  });
+const axios = Axios.create({
+  baseURL: "http://localhost:8000",
+});
 
-  const token = localStorage.getItem("token");
+const setAccessToken = (config) => {
+  const accessToken = localStorage.getItem("token");
 
-  if (token) {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
-  return instance;
+  return config;
 };
 
-export default createAxiosInstance();
+axios.interceptors.request.use(setAccessToken);
+
+export default axios;

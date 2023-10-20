@@ -28,7 +28,6 @@ const Modal = ({
         amount: transactionAmount,
         title: title,
       });
-      console.log(response);
       if (response) {
         window.location.reload();
         setDisplayNotification(false);
@@ -45,7 +44,6 @@ const Modal = ({
         amount: transactionAmount,
         title: title,
       });
-      console.log(response);
       if (response) {
         setDisplayNotification(false);
         window.location.reload();

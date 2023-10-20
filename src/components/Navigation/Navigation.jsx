@@ -73,6 +73,32 @@ const Navigation = () => {
           </svg>
           Transaction History
         </Link>
+
+        <Link
+          className={css.Link}
+          style={
+            currentLocation === "/dashboard/crypto" ||
+            currentLocation === "/dashboard/crypto/invest"
+              ? { color: "#5a358a", backgroundColor: "#ffff" }
+              : {}
+          }
+          to="/dashboard/crypto"
+        >
+          <svg
+            style={
+              currentLocation === "/dashboard/crypto" ||
+              currentLocation === "/dashboard/crypto/invest"
+                ? { fill: "#5a358a" }
+                : {}
+            }
+            className={css.Icon}
+            width="28"
+            height="28"
+          >
+            <use href="../../../icons.svg#bitcoin"></use>
+          </svg>
+          Crypto
+        </Link>
         <Link
           className={css.Link}
           style={

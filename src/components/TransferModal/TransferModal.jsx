@@ -20,7 +20,6 @@ const TransferModal = ({ setIsOpenTransfer }) => {
         amount: amount,
         email: email,
       });
-      console.log(response);
       if (response) {
         window.location.reload();
       }

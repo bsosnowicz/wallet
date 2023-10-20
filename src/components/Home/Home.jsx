@@ -19,15 +19,14 @@ const Home = ({ wallet, getBalance }) => {
       const response = await api.put(
         "http://localhost:8000/balance/clearhistory"
       );
-      getBalance();
       console.log(response);
+      getBalance();
     } catch (e) {
       console.log(e.message);
     }
   };
 
   const handleTransactionHistoryModal = async (e) => {
-    console.log(e.target);
     setisOpenTransactionHistory(true);
   };
 
