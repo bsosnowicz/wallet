@@ -1,0 +1,40 @@
+.Container {
+  padding-top: 44px;
+  display: flex;
+  flex-direction: column;
+}
+
+.NavContainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.Username {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 13px 13px 36px 13px;
+}
+
+.Link {
+  font-style: Inter;
+  text-decoration: none;
+  color: #75808a;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 13px;
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.Link:hover {
+  background-color: #dfe3e7;
+  transition: 0.3s cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.Icon {
+  fill: #75808a;
+  color: black;
+}
