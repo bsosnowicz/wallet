@@ -1,0 +1,47 @@
+.Backdrop {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Container {
+  background-color: white;
+  width: 540px;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.Title {
+  font-size: 26px;
+}
+
+.ButtonContainer {
+  display: flex;
+  padding-top: 60px;
+  gap: 20px;
+}
+
+.Button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 200px;
+  height: 50px;
+  background-color: #eae4f1;
+  color: #5a358a;
+  border: none;
+  font-size: 26px;
+  font-weight: 500;
+  border-radius: 20px;
+}
