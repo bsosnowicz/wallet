@@ -14,15 +14,12 @@ const RegisterForm = () => {
     try {
       const response = await axios.post("http://localhost:8000/register", {
         username: username,
-        email: email,
-        password: password,
+        email,
+        password,
       });
       if (response) {
         toast.success("Account registered!");
-        setTimeout(
-          () => window.location.replace("http://localhost:3000/"),
-          1500
-        );
+        setTimeout(() => window.location.replace("http://localhost:3000/"), 1500);
       }
     } catch (e) {
       console.log(e.message);
@@ -87,11 +84,7 @@ const RegisterForm = () => {
         </div>
       </div>
       <div className={css.RightContainer}>
-        <img
-          alt="purpleball"
-          className={css.RightContainerImage}
-          src="./purpleball.png"
-        />
+        <img alt="purpleball" className={css.RightContainerImage} src="./purpleball.png" />
       </div>
       <ToastContainer />
     </div>

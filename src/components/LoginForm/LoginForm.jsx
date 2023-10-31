@@ -10,15 +10,17 @@ const LoginForm = () => {
   const [password, setPassword] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState();
 
-  const sendLoginRequest = async () => {
+  const sendLoginRequest = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
 
       if (response.data.data.token) {
         localStorage.setItem("token", response.data.data.token);
+
         setIsLoggedIn(true);
       }
     } catch (e) {
@@ -43,9 +45,7 @@ const LoginForm = () => {
           </div>
           <div className={css.FormContainer}>
             <h4 className={css.Header}>Welcome back!</h4>
-            <p className={css.Description}>
-              Welcome back! Please enter your details
-            </p>
+            <p className={css.Description}>Welcome back! Please enter your details</p>
             <form className={css.Form}>
               <p className={css.InputText}>Email</p>
               <input
@@ -67,8 +67,7 @@ const LoginForm = () => {
               />
               <button
                 onClick={(e) => {
-                  sendLoginRequest();
-                  e.preventDefault();
+                  sendLoginRequest(e);
                 }}
                 className={css.SigninButton}
               >
@@ -85,11 +84,7 @@ const LoginForm = () => {
         </div>
       </div>
       <div className={css.RightContainer}>
-        <img
-          alt="purpleball"
-          className={css.RightContainerImage}
-          src="./purpleball.png"
-        />
+        <img alt="purpleball" className={css.RightContainerImage} src="./purpleball.png" />
       </div>
       <ToastContainer />
     </div>

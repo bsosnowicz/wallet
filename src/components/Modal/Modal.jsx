@@ -12,24 +12,21 @@ const Modal = ({
   const [transactionAmount, setTransactionAmount] = useState();
   const [title, setTitle] = useState();
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const closeModal = () => setIsOpen(false);
 
   const handleSliderClick = () => {
-    setTransactionType((prevType) =>
-      prevType === "deposit" ? "withdraw" : "deposit"
-    );
+    setTransactionType((prevType) => (prevType === "deposit" ? "withdraw" : "deposit"));
   };
 
   const depositBalance = async () => {
     try {
       const response = await api.put("http://localhost:8000/balance/deposit", {
         amount: transactionAmount,
-        title: title,
+        title,
       });
       if (response) {
         window.location.reload();
+
         setDisplayNotification(false);
       }
     } catch (e) {
@@ -42,16 +39,18 @@ const Modal = ({
     try {
       const response = await api.put("http://localhost:8000/balance/withdraw", {
         amount: transactionAmount,
-        title: title,
+        title,
       });
       if (response) {
         setDisplayNotification(false);
+
         window.location.reload();
       }
     } catch (e) {
       console.log(e.message);
       if (e.response) {
         setDisplayNotification(true);
+
         handleNotification(e.response.data.message);
       }
     }
@@ -63,20 +62,13 @@ const Modal = ({
         <h3 className={css.Title}>Add transaction</h3>
         {transactionType === "deposit" ? (
           <div className={css.Slider}>
-            <p
-              className={css.SliderText}
-              style={{ fontWeight: "700", color: "#5a358a" }}
-            >
+            <p className={css.SliderText} style={{ fontWeight: "700", color: "#5a358a" }}>
               Deposit
             </p>
-            <div
-              className={css.SliderBallContainer}
-              onClick={() => handleSliderClick()}
-            >
+            <div className={css.SliderBallContainer} onClick={() => handleSliderClick()}>
               <svg
                 style={{
-                  transition:
-                    "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+                  transition: "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
                 }}
                 className={css.SliderBallIcon}
                 width="20"
@@ -90,15 +82,11 @@ const Modal = ({
         ) : (
           <div className={css.Slider}>
             <p className={css.SliderText}>Deposit</p>
-            <div
-              className={css.SliderBallContainer}
-              onClick={() => handleSliderClick()}
-            >
+            <div className={css.SliderBallContainer} onClick={() => handleSliderClick()}>
               <svg
                 style={{
                   transform: `translateX(100%)`,
-                  transition:
-                    "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
+                  transition: "transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67)",
                 }}
                 className={css.SliderBallIcon}
                 width="20"
@@ -107,10 +95,7 @@ const Modal = ({
                 <use href="../../../icons.svg#minus"></use>
               </svg>
             </div>
-            <p
-              className={css.SliderText}
-              style={{ fontWeight: "700", color: "#5a358a" }}
-            >
+            <p className={css.SliderText} style={{ fontWeight: "700", color: "#5a358a" }}>
               Withdraw
             </p>
           </div>

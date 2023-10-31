@@ -9,16 +9,13 @@ import "react-toastify/dist/ReactToastify.css";
 const Home = ({ wallet, getBalance }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTransfer, setIsOpenTransfer] = useState(false);
-  const [isOpenTransactionHistory, setisOpenTransactionHistory] =
-    useState(false);
+  const [isOpenTransactionHistory, setisOpenTransactionHistory] = useState(false);
   const [transactionType, setTransactionType] = useState("deposit");
   const [displayNotification, setDisplayNotification] = useState(false);
 
   const clearHistory = async () => {
     try {
-      const response = await api.put(
-        "http://localhost:8000/balance/clearhistory"
-      );
+      const response = await api.put("http://localhost:8000/balance/clearhistory");
       console.log(response);
       getBalance();
     } catch (e) {
@@ -37,8 +34,6 @@ const Home = ({ wallet, getBalance }) => {
 
   useEffect(() => {
     getBalance();
-  }, []);
-  useEffect(() => {
     handleNotification();
   }, [handleNotification]);
 
@@ -96,35 +91,19 @@ const Home = ({ wallet, getBalance }) => {
                 >
                   <div className={css.TransactionHistoryContainer}>
                     {item.type === "Withdraw" ? (
-                      <svg
-                        className={css.TransactionHistoryIcon}
-                        width="16"
-                        height="16"
-                      >
+                      <svg className={css.TransactionHistoryIcon} width="16" height="16">
                         <use href="../../../icons.svg#minus"></use>
                       </svg>
                     ) : item.type === "Deposit" ? (
-                      <svg
-                        className={css.TransactionHistoryIcon}
-                        width="16"
-                        height="16"
-                      >
+                      <svg className={css.TransactionHistoryIcon} width="16" height="16">
                         <use href="../../../icons.svg#plus"></use>
                       </svg>
                     ) : item.type === "Transfer received" ? (
-                      <svg
-                        className={css.TransactionHistoryIcon}
-                        width="16"
-                        height="16"
-                      >
+                      <svg className={css.TransactionHistoryIcon} width="16" height="16">
                         <use href="../../../icons.svg#arrow-left"></use>
                       </svg>
                     ) : item.type === "Transfer sent" ? (
-                      <svg
-                        className={css.TransactionHistoryIcon}
-                        width="16"
-                        height="16"
-                      >
+                      <svg className={css.TransactionHistoryIcon} width="16" height="16">
                         <use href="../../../icons.svg#arrow"></use>
                       </svg>
                     ) : (
@@ -142,18 +121,14 @@ const Home = ({ wallet, getBalance }) => {
                     ""
                   ) : (
                     <div className={css.TransactionHistoryAmountContainer}>
-                      {item.type === "Withdraw" ||
-                      item.type === "Transfer sent" ? (
+                      {item.type === "Withdraw" || item.type === "Transfer sent" ? (
                         <p>-</p>
-                      ) : item.type === "Deposit" ||
-                        item.type === "Transfer received" ? (
+                      ) : item.type === "Deposit" || item.type === "Transfer received" ? (
                         <p>+</p>
                       ) : (
                         ""
                       )}
-                      <p className={css.TransactionHistoryAmount}>
-                        ${item.amount}
-                      </p>
+                      <p className={css.TransactionHistoryAmount}>${item.amount}</p>
                     </div>
                   )}
                 </li>
@@ -188,11 +163,7 @@ const Home = ({ wallet, getBalance }) => {
       ) : (
         ""
       )}
-      {isOpenTransfer ? (
-        <TransferModal setIsOpenTransfer={setIsOpenTransfer} />
-      ) : (
-        ""
-      )}
+      {isOpenTransfer ? <TransferModal setIsOpenTransfer={setIsOpenTransfer} /> : ""}
       <ToastContainer />
     </div>
   );
