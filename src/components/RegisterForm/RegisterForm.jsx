@@ -10,15 +10,16 @@ const RegisterForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const sendRegisterRequest = async () => {
+  const sendRegisterRequest = async (e) => {
     try {
       const response = await axios.post("http://localhost:8000/register", {
-        username: username,
+        username,
         email,
         password,
       });
       if (response) {
         toast.success("Account registered!");
+
         setTimeout(() => window.location.replace("http://localhost:3000/"), 1500);
       }
     } catch (e) {
@@ -27,6 +28,8 @@ const RegisterForm = () => {
         toast.error(e.response.data.message);
       }
     }
+
+    e.preventDefault();
   };
 
   return (
@@ -66,8 +69,7 @@ const RegisterForm = () => {
               />
               <button
                 onClick={(e) => {
-                  sendRegisterRequest();
-                  e.preventDefault();
+                  sendRegisterRequest(e);
                 }}
                 className={css.SigninButton}
               >

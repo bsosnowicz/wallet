@@ -16,9 +16,9 @@ const TransferModal = ({ setIsOpenTransfer }) => {
   const sendTransfer = async () => {
     try {
       const response = await api.put("http://localhost:8000/balance/transfer", {
-        title: title,
-        amount: amount,
-        email: email,
+        title,
+        amount,
+        email,
       });
       if (response) {
         window.location.reload();

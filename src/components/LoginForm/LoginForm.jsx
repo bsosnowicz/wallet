@@ -11,7 +11,6 @@ const LoginForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState();
 
   const sendLoginRequest = async (e) => {
-    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/login", {
         email,
@@ -29,6 +28,7 @@ const LoginForm = () => {
         toast.error(e.response.data.message);
       }
     }
+    e.preventDefault();
   };
 
   if (isLoggedIn) {
