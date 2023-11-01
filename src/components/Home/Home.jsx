@@ -5,6 +5,7 @@ import Modal from "../Modal/Modal";
 import TransferModal from "../TransferModal/TransferModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import formatDate from "../../utils/dateUtils";
 
 const Home = ({ wallet, getBalance }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +118,7 @@ const Home = ({ wallet, getBalance }) => {
                       <h5>
                         {item.type} || {item.title}
                       </h5>
-                      <p>{item.date}</p>
+                      <p>{formatDate(item.date)}</p>
                     </div>
                   </div>
                   {item.title === "Account registered!" ? (
