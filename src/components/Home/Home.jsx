@@ -34,6 +34,9 @@ const Home = ({ wallet, getBalance }) => {
 
   useEffect(() => {
     getBalance();
+  }, []);
+
+  useEffect(() => {
     handleNotification();
   }, [handleNotification]);
 

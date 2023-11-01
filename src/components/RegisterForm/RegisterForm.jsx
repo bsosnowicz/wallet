@@ -11,6 +11,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState();
 
   const sendRegisterRequest = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/register", {
         username,
@@ -28,8 +29,6 @@ const RegisterForm = () => {
         toast.error(e.response.data.message);
       }
     }
-
-    e.preventDefault();
   };
 
   return (
