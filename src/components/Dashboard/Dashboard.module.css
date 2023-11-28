@@ -1,0 +1,10 @@
+.Container {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 100px;
+}
+
+.CardContainer {
+  padding-top: 34px;
+}

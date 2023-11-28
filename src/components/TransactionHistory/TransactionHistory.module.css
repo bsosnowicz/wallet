@@ -1,0 +1,84 @@
+.Container {
+  background-color: white;
+  padding: 16px;
+  border-radius: 20px;
+  width: 450px;
+}
+
+.Title {
+  font-size: 34px;
+  margin-bottom: 18px;
+}
+
+.Text {
+  padding: 30px 0 12px 0;
+  color: #75808a;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.List {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Item {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Item:hover {
+  background-color: #dfe3e7;
+  border-radius: 20px;
+  transition: 0.3s cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.Icon {
+  fill: #5a358a;
+  background-color: #eae4f1;
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.ItemContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.AmountContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.ClearHistory {
+  text-align: right;
+  color: #5a358a;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ButtonContainer {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.Button {
+  height: 40px;
+  padding: 16px;
+  background-color: hsl(265, 32%, 92%);
+  border: none;
+  border-radius: 50px;
+  color: #5a358a;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
